@@ -13,4 +13,9 @@ class sections extends Model
       'description',
       'Created_by'  ,
     ];
+
+    public function product()
+    {
+        return $this->hasMany(products::class, 'section_id');
+    }
 }

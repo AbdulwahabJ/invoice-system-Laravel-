@@ -21,27 +21,41 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
-Route::middleware(['auth', 'verified'])->group(function (){
+Route::middleware(['auth', 'verified'])->group(function () {
 
-    Route::get('/dashboard', function () {return view('dashboard');})->name('dashboard');
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
 
-    Route::get('/invoices',[InvoicesController::class,'index'])->name('invoices');
+    Route::get('/invoices/section/{id}', [InvoicesController::class,'getproducts']);
+
+
+    Route::prefix('invoices')->controller(InvoicesController::class)->group(function () {
+        Route::get('/', 'index')->name('invoices');
+        Route::get('/create', 'create')->name('invoices.create');
+
+
+    });
 
     Route::prefix('sections')->controller(SectionsController::class)->group(function () {
-            Route::get('/','index')->name('sections');
-            Route::post('/store','store')->name('sections.store');
-            Route::post('/update','update')->name('sections.update');
-            Route::delete('/destroy','destroy')->name('sections.destroy');
+        Route::get('/', 'index')->name('sections');
+        Route::post('/store', 'store')->name('sections.store');
+        Route::post('/update', 'update')->name('sections.update');
+        Route::post('/create', 'create')->name('sections.create');
+        Route::delete('/destroy', 'destroy')->name('sections.destroy');
+
     });
 
     Route::prefix('products')->controller(productsController::class)->group(function () {
-            Route::get('/','index')->name('products');
-            Route::post('/store','store')->name('products.store');
+        Route::get('/', 'index')->name('products');
+        Route::post('/store', 'store')->name('products.store');
+        Route::post('/update', 'update')->name('products.update');
+        Route::delete('/destroy', 'destroy')->name('products.destroy');
+
 
     });
 
 });
-
 
 
 //---------------------------------------------------------------------------------------------------------------
@@ -52,5 +66,4 @@ Route::middleware(['auth', 'verified'])->group(function (){
 //});
 
 
-
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

@@ -16,7 +16,7 @@ class ProductsController extends Controller
     {
         $products = products::all();
         $sections = sections::all();
-        return view('products.products',compact(['sections','products']));
+        return view('products.products', compact(['sections', 'products']));
 
     }
 
@@ -35,12 +35,12 @@ class ProductsController extends Controller
     {
         $validated = $request->validate([
             'product_name' => 'required|unique:products|max:255',
-            'section_id'=>'required',
+            'section_id' => 'required',
             'description' => 'required',
         ], [
                 'product_name.required' => 'يرجى ادخال اسم المنتج',
                 'product_name.unique' => ' اسم المنتج موجود مسبقا',
-                'section_id.required'=>'يرجى اختيار اسم القسم',
+                'section_id.required' => 'يرجى اختيار اسم القسم',
                 'description.required' => 'يرجى ادخال الملاحظات',
             ]
         );
@@ -49,13 +49,12 @@ class ProductsController extends Controller
         $input = $request->all();
 
         products::create([
-            'product_name'=>$request->product_name,
-            'description'=>$request->description,
-            'section_id'=>$request->section_id,
+            'product_name' => $request->product_name,
+            'description' => $request->description,
+            'section_id' => $request->section_id,
         ]);
-        session()->flash('Add_product','تم اضافة المنتج بنجاح');
+        session()->flash('Add_product', 'تم اضافة المنتج بنجاح');
         return redirect('products');
-
 
 
     }
@@ -79,16 +78,38 @@ class ProductsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, products $products)
+    public function update(Request $request)
     {
-        //
+        $pro_id = $request->pro_id;
+        $validated = $request->validate([
+            'product_name' => 'required|unique:products,product_name|max:255' . $pro_id,
+            'description' => 'required',
+        ], [
+                'product_name.required' => 'يرجى ادخال اسم المنتج',
+                'product_name.unique' => ' اسم المنتج موجود مسبقا',
+                'description.required' => 'يرجى ادخال الملاحظات',
+            ]
+        );
+        $id = sections::where('section_name', $request->section_name)->first()->id;
+        $product = products::findOrFail($request->pro_id);
+        $product->update([
+            'product_name' => $request->product_name,
+            'section_name' => $id,
+            'description' => $request->description,
+        ]);
+        session()->flash('edit', 'تم تعديل المنتج بنجاح');
+        return back();
+
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(products $products)
+    public function destroy(Request $request)
     {
-        //
+        $id = $request->pro_id;
+        products::findOrFail($id)->delete();
+        session()->flash('delete', 'تم حذف المنتج بنجاح');
+        return back();
     }
 }

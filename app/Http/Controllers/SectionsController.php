@@ -14,7 +14,7 @@ class SectionsController extends Controller
     public function index()
     {
         $sections = sections::all();
-        return view('sections.section',compact('sections'));
+        return view('sections.section', compact('sections'));
     }
 
     /**
@@ -34,22 +34,22 @@ class SectionsController extends Controller
             'section_name' => 'required|unique:sections|max:255',
             'description' => 'required',
         ], [
-            'section_name.required' => 'يرجى ادخال اسم القسم',
-             'section_name.unique' => ' اسم القسم موجود مسبقا',
-             'description.required' => 'يرجى ادخال الملاحظات',
+                'section_name.required' => 'يرجى ادخال اسم القسم',
+                'section_name.unique' => ' اسم القسم موجود مسبقا',
+                'description.required' => 'يرجى ادخال الملاحظات',
             ]
         );
 
 
         $input = $request->all();
 
-            sections::create([
-                'section_name'=>$request->section_name,
-                'description'=>$request->description,
-                'Created_by'=>(Auth::User()->name),
-            ]);
-            session()->flash('Add','تم اضافة القسم بنجاح');
-            return redirect('sections');
+        sections::create([
+            'section_name' => $request->section_name,
+            'description' => $request->description,
+            'Created_by' => (Auth::User()->name),
+        ]);
+        session()->flash('Add', 'تم اضافة القسم بنجاح');
+        return redirect('sections');
 
 
     }
@@ -73,11 +73,11 @@ class SectionsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request )
+    public function update(Request $request)
     {
         $id = $request->id;
         $validated = $request->validate([
-            'section_name' => 'required|unique:sections,section_name|max:255'.$id,
+            'section_name' => 'required|unique:sections,section_name|max:255' . $id,
             'description' => 'required',
         ], [
                 'section_name.required' => 'يرجى ادخال اسم القسم',
@@ -86,23 +86,28 @@ class SectionsController extends Controller
             ]
         );
 
-        $section=sections::find($id);
+        $section = sections::find($id);
         $section->update([
-            'section_name'=>$request->section_name,
-            'description'=>$request->description,
+            'section_name' => $request->section_name,
+            'description' => $request->description,
         ]);
 
-        session()->flash('edit','تم التعديل بنجاح');
+        session()->flash('edit', 'تم التعديل بنجاح');
         return back();
     }
+
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(Request $request)
     {
         $id = $request->id;
-        sections::find($id)->delete();
-        session()->flash('delete','تم حذف القسم بنجاح');
+        $section = sections::find($id);
+
+        $section->product()->delete();
+        $section->delete();
+
+        session()->flash('delete', 'تم حذف القسم بنجاح');
         return back();
     }
 }

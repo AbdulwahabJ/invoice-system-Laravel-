@@ -4,90 +4,87 @@
 @stop
 @section('css')
     <!-- Internal Data table css -->
-    <link href="{{ URL::asset('assets/plugins/datatable/css/dataTables.bootstrap4.min.css') }}" rel="stylesheet" />
+    <link href="{{ URL::asset('assets/plugins/datatable/css/dataTables.bootstrap4.min.css') }}" rel="stylesheet"/>
     <link href="{{ URL::asset('assets/plugins/datatable/css/buttons.bootstrap4.min.css') }}" rel="stylesheet">
-    <link href="{{ URL::asset('assets/plugins/datatable/css/responsive.bootstrap4.min.css') }}" rel="stylesheet" />
+    <link href="{{ URL::asset('assets/plugins/datatable/css/responsive.bootstrap4.min.css') }}" rel="stylesheet"/>
     <link href="{{ URL::asset('assets/plugins/datatable/css/jquery.dataTables.min.css') }}" rel="stylesheet">
     <link href="{{ URL::asset('assets/plugins/datatable/css/responsive.dataTables.min.css') }}" rel="stylesheet">
     <link href="{{ URL::asset('assets/plugins/select2/css/select2.min.css') }}" rel="stylesheet">
 @endsection
 @section('page-header')
-				<!-- breadcrumb -->
-				<div class="breadcrumb-header justify-content-between">
-					<div class="my-auto">
-						<div class="d-flex">
-							<h4 class="content-title mb-0 my-auto">قائمة الفواتير</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/ Empty</span>
-						</div>
-					</div>
+    <!-- breadcrumb -->
+    <div class="breadcrumb-header justify-content-between">
+        <div class="my-auto">
+            <div class="d-flex">
+                <h4 class="content-title mb-0 my-auto">قائمة الفواتير</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/ Empty</span>
+            </div>
+        </div>
 
-				</div>
-				<!-- breadcrumb -->
+    </div>
+    <!-- breadcrumb -->
 @endsection
 @section('content')
-				<!-- row -->
-                <div class="row row-sm">
+    <!-- row -->
+    <div class="row row-sm">
 
-                    <!--div-->
-                    <div class="col-xl-12">
-                        <div class="card mg-b-20">
-                            <div class="card-header pb-0">
-                                <div class="d-flex justify-content-between">
-                                    <h4 class="card-title mg-b-0">Bordered Table</h4>
-                                    <i class="mdi mdi-dots-horizontal text-gray"></i>
-                                </div>
-                                <p class="tx-12 tx-gray-500 mb-2">Example of Valex Bordered Table.. <a href="">Learn more</a></p>
-                            </div>
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <table id="example1" class="table key-buttons text-md-nowrap">
-                                        <thead>
-                                        <tr>
-                                            <th class="border-bottom-0">#</th>
-                                            <th class="border-bottom-0">رقم الفاتورة</th>
-                                            <th class="border-bottom-0">تاريخ الفاتورة</th>
-                                            <th class="border-bottom-0">تاريخ الاستحقاق</th>
-                                            <th class="border-bottom-0">المنتج</th>
-                                            <th class="border-bottom-0">القسم</th>
-                                            <th class="border-bottom-0">الخصم</th>
-                                            <th class="border-bottom-0">نسبة الضريبة</th>
-                                            <th class="border-bottom-0">قيمة الضريبة</th>
-                                            <th class="border-bottom-0">الاجمالي</th>
-                                            <th class="border-bottom-0">الحالة</th>
-                                            <th class="border-bottom-0">الملاحظات</th>
+        <!--div-->
+        <div class="col-xl-12">
+            <div class="card mg-b-20">
+                <div class="card-header pb-0">
+                    <a href="{{route('invoices.create')}}" class="modal-effect btn btn-sm btn-primary" style="color:white"><i
+                            class="fas fa-plus"></i>&nbsp; اضافة فاتورة</a>
+                </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="example1" class="table key-buttons text-md-nowrap">
+                                <thead>
+                                <tr>
+                                    <th class="border-bottom-0">#</th>
+                                    <th class="border-bottom-0">رقم الفاتورة</th>
+                                    <th class="border-bottom-0">تاريخ الفاتورة</th>
+                                    <th class="border-bottom-0">تاريخ الاستحقاق</th>
+                                    <th class="border-bottom-0">المنتج</th>
+                                    <th class="border-bottom-0">القسم</th>
+                                    <th class="border-bottom-0">الخصم</th>
+                                    <th class="border-bottom-0">نسبة الضريبة</th>
+                                    <th class="border-bottom-0">قيمة الضريبة</th>
+                                    <th class="border-bottom-0">الاجمالي</th>
+                                    <th class="border-bottom-0">الحالة</th>
+                                    <th class="border-bottom-0">الملاحظات</th>
 
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>223232</td>
-                                            <td>2023</td>
-                                            <td>2024</td>
-                                            <td>cc</td>
-                                            <td>البنك الاهلي</td>
-                                            <td>1000</td>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>223232</td>
+                                    <td>2023</td>
+                                    <td>2024</td>
+                                    <td>cc</td>
+                                    <td>البنك الاهلي</td>
+                                    <td>1000</td>
 
-                                            <td>10%</td>
-                                            <td>2500</td>
-                                            <td>2560</td>
-                                            <td>غير مدفوع</td>
-                                            <td>----</td>
-                                        </tr>
+                                    <td>10%</td>
+                                    <td>2500</td>
+                                    <td>2560</td>
+                                    <td>غير مدفوع</td>
+                                    <td>----</td>
+                                </tr>
 
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
-                    <!--/div-->
-
                 </div>
-				<!-- row closed -->
-			</div>
-			<!-- Container closed -->
-		</div>
-		<!-- main-content closed -->
+            </div>
+            <!--/div-->
+
+        </div>
+        <!-- row closed -->
+    </div>
+    <!-- Container closed -->
+    </div>
+    <!-- main-content closed -->
 @endsection
 @section('js')
     <!-- Internal Data tables -->
